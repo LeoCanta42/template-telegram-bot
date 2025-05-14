@@ -13,7 +13,5 @@ def register_handlers(application: Application):
     application.add_handler(CommandHandler("done", complete))
 
     # Message handlers
-    # Forwarded message to topic = add to TODO
-    application.add_handler(MessageHandler(filters.TEXT, check_forwarded_message))
-
-    # application.add_handler(MessageHandler(filters.ALL, debug))
+    application.add_handler(MessageHandler(filters.ALL, debug), group=0)
+    application.add_handler(MessageHandler(filters.TEXT, check_forwarded_message), group=1)

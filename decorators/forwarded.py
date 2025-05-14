@@ -1,9 +1,13 @@
 from telegram import Update
 from telegram.ext import ContextTypes
+from services.logger import setup_logger
+
+logger = setup_logger(__name__)
 
 def forwarded_only(func):
-    def wrapper(update: Update, context: ContextTypes.DEFAULT_TYPE, *args, **kwargs):
-        if not update.message or not hasattr(update.message,'forward_origin'):
+    async def wrapper(update: Update, context: ContextTypes.DEFAULT_TYPE, *args, **kwargs):
+        isForwarded = update.message and update.message.forward_origin is not None
+        if not isForwarded:
             return
-        return func(update, context, *args, **kwargs)
+        return await func(update, context, *args, **kwargs)
     return wrapper
