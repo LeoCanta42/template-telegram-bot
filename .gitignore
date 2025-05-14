@@ -1,0 +1,32 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# SQLite database
+*.db
+
+# Virtual environment
+venv/
+.env/
+.venv/
+
+# VS Code settings
+.vscode/
+
+# PyCharm settings
+.idea/
+
+# macOS and Linux system files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment variable files
+.env
+
+# Pipenv / Poetry
+Pipfile.lock
+poetry.lock
