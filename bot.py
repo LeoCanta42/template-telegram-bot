@@ -1,17 +1,18 @@
-from telegram.ext import ApplicationBuilder, MessageHandler, filters
+from telegram.ext import ApplicationBuilder
 from config import BOT_TOKEN
 from services.logger import setup_logger
-from handlers.echo import echo
+from db.todo_db import init_db
+from handlers import register_handlers
 
-logger = setup_logger()
 
 def main():
+    logger = setup_logger()
+    init_db()
     application = ApplicationBuilder().token(BOT_TOKEN).build()
-
-    # Register the echo handler
-    application.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), echo))
-
-    logger.info("Bot started...")
+    
+    register_handlers(application)
+    
+    logger.info("Bot running...")
     application.run_polling()
 
 if __name__ == '__main__':

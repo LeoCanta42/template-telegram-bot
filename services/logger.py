@@ -1,8 +1,15 @@
+# services/logger.py
 import logging
 
-def setup_logger():
-    logging.basicConfig(
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-        level=logging.INFO
-    )
-    return logging.getLogger(__name__)
+def setup_logger(name="telegram_bot"):
+    logger = logging.getLogger(name)
+    logger.setLevel(logging.INFO)
+
+    if not logger.hasHandlers():
+        handler = logging.StreamHandler()
+        handler.setLevel(logging.INFO)
+        formatter = logging.Formatter("[%(asctime)s] %(name)s - %(levelname)s - %(message)s")
+        handler.setFormatter(formatter)
+        logger.addHandler(handler)
+
+    return logger
