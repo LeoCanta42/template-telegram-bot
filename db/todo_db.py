@@ -25,13 +25,8 @@ def list_todos() -> List[sqlite3.Row]:
         conn.row_factory = sqlite3.Row  # enables dict-style access
         return conn.execute("SELECT id, message, is_done FROM todos").fetchall()
 
-def complete_todo(todo_id: int) -> Optional[int]:
+def complete_todo(todo_msg_id: int):
     with sqlite3.connect(DB_PATH) as conn:
-        cursor = conn.execute("SELECT message_id FROM todos WHERE id = ?", (todo_id,))
-        row = cursor.fetchone()
-        if row:
-            topic_msg_id = row[0]
-            conn.execute("UPDATE todos SET is_done = 1 WHERE id = ?", (todo_id,))
-            return topic_msg_id
+        conn.execute("UPDATE todos SET is_done = 1 WHERE message_id = ?", (todo_msg_id,))
     return None
 

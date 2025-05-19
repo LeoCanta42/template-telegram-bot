@@ -30,3 +30,6 @@ Thumbs.db
 # Pipenv / Poetry
 Pipfile.lock
 poetry.lock
+
+# Secrets
+.bottoken
