@@ -1,13 +1,16 @@
+import db.money_db
+import db.todo_db
 from telegram.ext import ApplicationBuilder
 from config import BOT_TOKEN
 from services.logger import setup_logger
-from db.todo_db import init_db
+import db
 from handlers import register_handlers
 
 
 def main():
     logger = setup_logger()
-    init_db()
+    db.money_db.init_db()  # Initialize the money database
+    db.todo_db.init_db()  # Initialize the todo database
     application = ApplicationBuilder().token(BOT_TOKEN).build()
     
     register_handlers(application)

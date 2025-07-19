@@ -4,6 +4,7 @@ from telegram.ext import CommandHandler, MessageHandler, filters
 from .start import start
 from .todo import todo_list, complete, check_forwarded_message, delete_messages_sent
 from .debug import debug
+from .money_count import money_count_handler
 
 
 def register_handlers(application: Application):
@@ -16,3 +17,5 @@ def register_handlers(application: Application):
     application.add_handler(MessageHandler(filters.TEXT, check_forwarded_message), group=1)
     application.add_handler(MessageHandler(filters.TEXT, complete), group=2)
     application.add_handler(MessageHandler(filters.TEXT, delete_messages_sent), group=3)
+    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, money_count_handler), group=4)
+
